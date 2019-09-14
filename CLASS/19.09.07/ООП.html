@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ООП</title>
+</head>
+<body>
+
+<script>
+	// Функциональный стиль
+	function Fruit(type, count) {
+		this._type = type;
+		this._count = count;
+		this.getCount = function() {
+			return this._count;
+		}
+		this.setCount = function(value) {
+			this._count = value;
+		}
+	}
+
+	var fruit01 = new Fruit("apple", 10);
+	console.log(fruit01); // {_type: "apple", ...}
+
+	// Прототипный стиль
+	function Building(size, floor) {
+		this._size = size;
+		this._floor = floor;
+	}
+
+	Building.prototype.getSize = function() {
+		return this._size;
+	}
+
+	Building.prototype.build = function() {
+		return "строим здание..."
+	}
+
+	var office = new Building(10, 100);
+	console.log(office)
+
+	Building.prototype.openWindow = function() {
+		return "открываем окна..."
+	}
+
+	console.log(office.build())
+	console.log(office.openWindow())
+
+	function Сranes(size, floor) {
+		this._size = size;
+		this._floor = floor;
+	}
+	// Скопировали ссылку на прототип
+	// Сranes.prototype = Building.prototype;
+	// Сranes.prototype.run = f() {}
+	// в Building добавится метод run
+	// office.run() зачем он тут ?
+	// Это все из-за того, что мы скопировали не методы а ссылку на объект и работаем с одним объектом
+
+	for(var prop in Building.prototype) {
+		Сranes.prototype[prop] = Building.prototype[prop]
+	}
+
+	Сranes.prototype.run = function() {
+		return "Кран движется..."
+	}
+
+	console.log(office); // в __proto__ нет метода run
+
+	// Свойства объекта
+	var obj = {
+		x: 1,
+		"apple": 10
+	}
+	console.log(obj.x) // 1
+	console.log(obj["x"]) // 1
+	var prop = "x";
+	console.log(obj[prop]); // 1
+	console.log(obj.apple); // 10
+	console.log(obj["apple"]); // 10
+
+	// Классовый стиль
+	class Animals {
+		constructor(type, name) {
+			this._type = type;
+			this._name = name;
+		}
+
+		run() {
+			return this._name + ": бежит...";
+		}
+	}
+
+	var rabbit = new Animals("rabbit", "Alex");
+	console.log(rabbit.run())
+
+	class Bird extends Animals {
+		constructor(type, name, color) {
+			super(type, name);
+			this._color = color;
+		}
+		fly() {
+			return this._name + ": летает...";
+		}
+
+		get color() {
+			return this._color;
+		}
+	}
+
+	var dove = new Bird("bird", "Bob", "purple");
+	console.log(dove.fly())
+	console.log(dove.color)
+</script>
+
+</body>
+</html>

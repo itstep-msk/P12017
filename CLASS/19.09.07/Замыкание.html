@@ -1,0 +1,29 @@
+function Generator() {
+	var count = 0;
+
+	return function() {
+		return count++;
+	}
+}
+
+var gen01 = Generator();  function() {return count++;}
+var gen02 = Generator();  function() {return count++;}
+console.log(gen01())  0
+console.log(gen01())  1
+console.log(gen02())  0
+console.log(gen02())  1
+console.log(gen02())  2
+
+[1,2,3,4,5].filter(function(item) {
+	return item  3;
+})
+
+function Filter() {
+	var MAX_ITEM = 3;
+
+	return function(item) {
+		return item  MAX_ITEM;
+	}
+}
+
+var newArr = [1,2,3,4,5].filter(Filter())  [4,5];

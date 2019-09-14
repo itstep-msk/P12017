@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Slider</title>
+</head>
+<body>
+
+<style>
+	.slider {
+		width: 400px;
+		overflow: hidden;
+	}
+
+	.box {
+		width: 10000px;
+		transition: all, 1s;
+	}
+
+	.box img {
+		width: 400px;
+		height: 300px;
+	}
+</style>
+
+<div class="slider"></div>
+
+<img class="arrow-left" src="arrow-left.png" width="200px">
+<img class="arrow-right" src="arrow-right.png" width="200px">
+
+<script>
+	class Slider {
+		constructor(param) {
+			this._element = document.querySelector(param.el);
+			this._images = param.images;
+			this._box = null;
+			this._count = 0;
+			this._init();
+		}
+
+		prev() {
+			if(this._count <= 0) return false;
+
+			this._count--;
+			this._box.style.marginLeft = this._count * -400 + "px";	
+		}
+
+		next() {
+			if(this._count >= this._images.length - 1) return false;
+
+			this._count++;
+			this._box.style.marginLeft = this._count * -400 + "px";	
+		}
+
+		_createBox() {
+			var box = document.createElement("div");
+
+			box.classList.add("box");
+
+			for(var i = 0; i < this._images.length; i++) {
+				var img = document.createElement("img");
+
+				img.src = this._images[i];
+
+				box.appendChild(img);
+			}
+
+			return box;
+		}
+
+		_init() {
+			this._box = this._createBox();
+			this._element.appendChild(this._box);
+		}
+	}
+
+	var slider = new Slider({
+		el: ".slider",
+		images: ["img/1.jpg","img/2.jpg","img/3.jpg"]
+	});
+	var arrowLeft = document.querySelector(".arrow-left");
+	var arrowRight = document.querySelector(".arrow-right");
+
+	arrowLeft.addEventListener("click", function() {
+		slider.prev();	
+	})
+
+	arrowRight.addEventListener("click", function() {
+		slider.next();	
+	})
+</script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+	// Start
+	//alert("Hello world");
+	//confirm("Hola ?")
+	//var answer = prompt("apple or orange ?");
+	//console.log(answer);
+
+	// 6 типов данных
+	//console.log(num) // undefined
+	var num = 5;
+	var str = "hello";
+	var bool = true
+	var empty = null;
+	var undef = undefined;
+	var obj = {}
+
+	console.log(typeof num);
+	console.log(typeof str);
+	console.log(typeof bool);
+	console.log(typeof empty);
+	console.log(typeof undef);
+	console.log(typeof obj);
+
+	//
+	var apple;
+	console.log(2 + 2) // 4
+	console.log(2 + "2") // 22
+	console.log(10 - "5") // 5
+	console.log(10 - "a") // NaN
+	console.log(apple) // undefined
+
+	// Преобразование типов
+	console.log(2 +   +"2"); // 4
+	console.log(2 +   Number("2")); // 4
+	console.log(!!0); // false
+	console.log(!0); // true
+	console.log(Boolean(0)); // false
+
+	// Сравнения
+	console.log("2" == 2) // true
+	console.log("2" === 2) // false
+	console.log(0 == false) // true
+	console.log("" == false) // true
+	// for fun
+	console.log(null == 0) // false
+	console.log(null > 0) // false
+	console.log(null >= 0) // true
+	// null and undefined
+	console.log(null == undefined) // true
+	console.log(null == null) // true
+	console.log(undefined == undefined) // true
+
+	/*
+	undefined/null - false
+	Числа все true кроме: 0, NaN, false
+	Строки все true кроме: ""
+	Объекты всегда - true
+	*/
+
+	// Функции
+	console.log(greeting()); // "Введите имя...";
+
+	function greeting(name) {
+		// console.log(num); 5
+		if(name === undefined) {
+			return "Введите имя...";
+		}
+		return "Hello " + name;
+	}
+	// greeting2() - ошибка
+	var greeting2 = function(name) {
+		if(name === undefined) {
+			return "Введите имя...";
+		}
+		return "Hello " + name;
+	}
+  	console.log(greeting2("Alex")) // Hello Alex
+  	console.log(greeting("Alex")); // "Hello Alex";
+  	console.log(greeting("Bob")); // "Hello Bob";
+  	console.log(greeting()); // "Введите имя...";
+
+  	function fact(num) {
+  		if(num === 1) {
+  			return 1;
+  		} else {
+  			return num * fact(num - 1);
+  		}
+  	}
+
+  	console.log(fact(5)) // 120
+</script>
+
+</body>
+</html>

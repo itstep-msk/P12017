@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Структура данных</title>
+</head>
+<body>
+
+<script>
+	var obj = {
+		x: 10,
+		getSum: function() {
+			return this.x + this.y;
+		}
+	}
+	obj.y = 20;
+	console.log(obj) // {x: 10, y: 20}
+	console.log(obj.x) // 10
+	console.log(obj.y) // 20
+	console.log(obj.getSum()) // 30
+
+	// Свойства и методы стандартных типов данных
+	var num = 123.456;
+
+	console.log(num.toFixed(2)) // "123.46"
+	console.log(num.toFixed(5)) // "123.45600"
+	console.log(num) // 123.456
+
+	var str = "Hello World";
+	console.log(str.toUpperCase()) // "HELLO WORLD"
+	console.log(str.toLowerCase()) // "hello world"
+	console.log(str.length) // 11
+	console.log(str[0]) // "H"
+
+	String.prototype.orange = function() {
+		return this + " ::: --- &&&";
+	}
+
+	console.log(str.orange()) // Hello World ::: --- &&&
+	console.log("Что тут происходит ?".orange()) // Что тут происходит ? ::: --- &&&
+
+	// Перебор объектов
+
+	var animals = {
+		dogs: 1,
+		rabbit: 2,
+		run: function() {
+			return "animal run...";
+		}
+	}
+
+	for(key in animals) {
+		console.log(key) // dogs, rabbit, run
+		if(typeof animals[key] === "function") {
+			console.log(animals[key]()) // "animal run..."
+			// animals[key] // function() {...} тело функции
+		} else {
+			console.log(animals[key]); // 1, 2
+		}
+	}
+	// animals.dogs, animals["dogs"]
+
+	// Объект ссылка
+	var a = 10;
+	var b = a;
+	a = 5;
+	console.log(b) // 10
+
+	var position = {x: 1, y: 2}
+	var fruitrs = position;
+	fruitrs.x = 100
+	console.log(position.x) // 100 
+
+	//alert(position) // [object Object]
+	console.log(position.toString()) // [object Object]
+	position.toString = function() {
+		return "это - объект"
+	}
+	console.log(position.toString()) // это - объект
+	// alert(position) // это - объект
+	// к строке - toString(), к числу - valueOf()
+	var array = [1,2,3];
+	console.log(array.toString()); // "1,2,3"
+	console.log(array + array); // "1,2,31,2,3"
+
+	// Методы массива
+
+	var str = "javascript apple orange";
+
+	console.log(str.split("")) // ["j", "a", "v", "a", "s".....]
+	console.log(str.split(" ")) //  ["javascript", "apple", "orange"]
+	console.log(str.split("apple")) //  ["javascript ", " orange"];
+
+	var newStr = str.split("");
+	console.log(newStr.join("-")); // j-a-v-a-s-c-r-i-p-t- -a-p-p-l-e- -o-r-a-n-g-e
+
+	console.log("hello world".split("").reverse().join("")) // dlrow olleh
+	// splice
+	var meat = [1,2,3,4,5];
+	meat.splice(2,1);
+	console.log(meat) // [1, 2, 4, 5]
+
+	// forEach, filter, map
+	var cars = ["bmw", "audi", "lada"];
+
+	cars.forEach(function(car, index) {
+		console.log(car, index);
+		/*
+			bmw 0
+			audi 1
+			lada 2
+		*/
+	})
+	// filter
+	var shop = cars.filter(function(car) {
+		if(car.length > 3) {
+			return true;
+		} else {
+			return false;
+		}
+	})
+
+	cars.filter(car => {
+		return car.length > 3
+	})
+
+	cars.filter(car => car.length > 3)
+
+	console.log(shop) // ["audi", "lada"]
+
+	// map
+
+	var carsLength = cars.map(function(car) {
+		return car.length;
+	})
+
+	var carsUpperCase = cars.map(function(car) {
+		return car.toUpperCase();
+	})
+
+	console.log(carsLength) // [3,4,4]
+	console.log(carsUpperCase) // ["BMW", "AUDI", "LADA"]
+
+	// arguments
+	function sumNumbers() {
+		console.log(arguments);
+		var result = 0;
+
+		for(var i = 0; i < arguments.length; i++) {
+			result += arguments[i];
+		}
+
+		return result;
+	}
+
+	console.log(sumNumbers(1,2,3)) // 6
+	console.log(sumNumbers(1,2,3,4,5,6)) // 21
+	console.log(sumNumbers(1,2,3,4,5,6,7,8,9)) // 45
+
+</script>
+
+</body>
+</html>

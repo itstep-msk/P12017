@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Document</title>
+</head>
+<body>
+
+<style>
+	.paper {
+		background: purple;
+	}
+</style>
+
+<div class="block"></div>
+
+<script>
+	//console.log(document); // верстка
+	//console.dir(document); // свойства/методы
+
+	var block = document.querySelector(".block");
+
+	console.log(block) // <div class="block"></div>
+	block.innerHTML = "Hello HTML";
+	// innerHTML - для обычнынх элементов
+	// value - для элементов формы
+	block.setAttribute("fruits", "10")
+	block.classList.add("paper");
+
+	// block.onclick = function() {
+	// 	console.log("Нажали по div'y...");
+	// }
+	// block.onclick = function() {
+	// 	console.log("Перезаписали...");
+	// }
+
+	block.addEventListener("click", function(e) {
+		console.log(e); // инфа о событии
+		console.log("Нажали по div'y...");
+	})
+	block.addEventListener("click", function() {
+		console.log("Еще один слушатель...");
+	})
+</script>
+
+</body>
+</html>

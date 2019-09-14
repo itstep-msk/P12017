@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check-list</title>
+</head>
+<body>
+
+<input type="text" class="text">
+<input type="submit" class="submit">
+<div class="list"></div>
+
+<script>
+	var text = document.querySelector(".text");
+	var submit = document.querySelector(".submit");
+	var list = document.querySelector(".list");
+	var storage = [];
+
+	text.focus();
+
+	submit.addEventListener("click", function() {
+		if(text.value === "" || text.value === " ") return false;
+
+		list.innerHTML = "";
+		storage.push(text.value);
+		storage.forEach((task, i) => {
+			list.innerHTML += "<div><input type='submit' class='remove' value='x' index='" + i + "'>" + task + "</div>";
+		})
+
+		text.focus();
+		text.value = "";
+	})
+
+	list.addEventListener("click", function(e) {
+		if(e.target.classList.contains("remove")) {
+			var index = e.target.getAttribute("index")
+			
+			storage.splice(index, 1); // splice(с какого, кол-во)
+			list.innerHTML = "";
+			storage.forEach((task, i) => {
+				list.innerHTML += "<div><input type='submit' class='remove' value='x' index='" + i + "'>" + task + "</div>";
+			})
+
+			text.focus();
+		}
+	})
+</script>
+
+</body>
+</html>
