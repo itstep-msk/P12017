@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue.js</title>
+</head>
+<body>
+
+<div id="app">
+	<input ref="taskTextRef" type="text" v-model="taskText">
+	<input type="submit" value="+" v-on:click="addTask">
+	<task v-for="(task, index) in tasks" v-bind:item="task" v-bind:index="index"></task>
+</div>
+
+<template id="template-task">
+	<div>
+		<span>{{ index + 1 }} - {{ item }}</span>
+		<button v-on:click="removeTask(index)">REMOVE</button>
+	</div>
+</template>
+
+<script src="vue.min.js"></script>
+<script>
+	Vue.component("task", {
+		props: ["item", "index"],
+		methods: {
+			removeTask: function(i) {
+				this.$root.tasks.splice(i, 1);
+			}
+		},
+		template: "#template-task"
+	})
+
+	var app = new Vue({
+		el: "#app",
+		data: {
+			taskText: "",
+			tasks: []
+		},
+		methods: {
+			addTask: function() {
+				this.tasks.push(this.taskText);
+				this.taskText = "";
+				this.$refs.taskTextRef.focus();
+				// $refs - список элементов, у которых есть атрибут ref="", ref - reference - ссылка
+			}
+		}
+	})
+</script>
+
+</body>
+</html>

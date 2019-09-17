@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue.js</title>
+</head>
+<body>
+
+<div id="app">
+	<food fruit="Яблоко" weight="100"></food>
+	<food fruit="Апельсин" weight="200"></food>
+	<food v-bind:fruit="testFruit" weight="300"></food>
+
+	<food v-for="item in storage" v-bind:fruit="item"></food>
+</div>
+
+<script src="vue.min.js"></script>
+<script>
+	Vue.component("food", {
+		props: ["fruit", "weight"],
+		data: function() {
+			return {
+				message: "Привет из компонента"
+			}
+		},
+		methods: {
+			greeting: function() {
+				console.log("hello from component")
+			}
+		},
+		template: "<div v-on:click='greeting'>{{ message }} + {{ fruit }}, {{ weight }}</div>"
+	})
+	// Корневые свойсва(methods, watch, computed) не отличаются от прописанных в new Vue({...}) КРОМЕ объекта data. Он должен быть функцией, которая возвращает объект со свойствами
+
+	/*
+	data: {
+		message: "Hello"
+	}
+
+	data:function() {
+		return {
+			message: "Hello"
+		}
+	}
+
+	*/
+
+	// Тело компонента должно быть обернуто в тег!
+	/*
+	function food(fruit) {
+		return "<div>Привет {{ fruit }} из компонента</div>"
+	}
+	food("Яблоко")
+	*/
+
+	var app = new Vue({
+		el: "#app",
+		data: {
+			testFruit: "banana",
+			storage: ["Картошка", "Тыква", "Дыня"]
+		}
+	})
+</script>
+
+</body>
+</html>

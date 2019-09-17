@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue.js</title>
+</head>
+<body>
+
+<div id="app">
+	<div v-for="fruit in fruits">
+		{{ fruit }}
+	</div>
+	<div v-for="(fruit, index) in fruits">
+		{{ index + 1 }} - {{ fruit }} - {{ fruit.toUpperCase() }}
+		<!-- В {{  }} можно писать JS код, который вернет что-нибудь -->
+	</div>
+</div>
+
+<script src="vue.min.js"></script>
+<script>
+	var app = new Vue({
+		el: "#app",
+		data: {
+			fruits: ["apple", "orange", "plum"]
+		}
+	})
+</script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue.js</title>
+</head>
+<body>
+
+<div id="app">
+	<span v-if="apple">Яблоко</span> 
+	<span v-else>Тут v-else</span>
+	<span v-if="!apple">Инверсия apple</span>
+</div>
+
+<script src="vue.min.js"></script>
+<script>
+	var app = new Vue({
+		el: "#app",
+		data: {
+			apple: true
+		}
+	})
+</script>
+
+</body>
+</html>

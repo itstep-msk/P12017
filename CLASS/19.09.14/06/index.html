@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue.js</title>
+</head>
+<body>
+
+<div id="app">
+	{{ message }}
+	<br>
+	<input type="text" v-model="message">
+	<br>
+	{{ size }}
+	<br>
+	<input type="range" v-model="size">
+	<input type="range" v-model="size">
+	<input type="range" v-model="size">
+	<br>
+	<input type="checkbox" v-model="apple">
+	<div v-if="apple">Яблоко</div>
+
+	<select v-on:change="getSelectValue">
+		<option v-for="car in cars">{{ car }}</option>
+	</select>
+</div>
+
+<script src="vue.min.js"></script>
+<script>
+	var app = new Vue({
+		el: "#app",
+		data: {
+			message: "apple",
+			size: 10,
+			apple: true,
+			cars: ["bmw", "audi", "mersedes"]
+		},
+		methods: {
+			getSelectValue: function(e) {
+				console.log(e.target.value) // забрать выбраное значение
+			}
+		}
+	})
+</script>
+
+</body>
+</html>
