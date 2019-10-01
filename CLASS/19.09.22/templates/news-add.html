@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>News add</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+	<div class="card w-25 mx-auto">
+		<div class="card-body">
+	    	<form action="/news-handler" method="POST">
+				<input name="title" class="form-control" placeholder="Заголовок">
+				<input name="content" class="form-control" placeholder="Текст новости...">
+				<input type="submit" class="btn btn-primary" value="Добавить">
+			</form>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
