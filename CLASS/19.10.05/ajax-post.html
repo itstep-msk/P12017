@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+	var ajax = new XMLHttpRequest();
+
+	ajax.onreadystatechange = function() {
+		if(ajax.status === 200 && ajax.readyState === 4) {
+			console.log(ajax.responseText);
+		}
+	}
+
+	// POST
+	ajax.open("POST", "http://localhost/post.php");
+	// Для POST запроса нужно указывать заголовок
+	ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+	ajax.send("login=Alex");
+
+	// GET
+	//ajax.open("GET", "http://localhost/get.php?apple=10&orange=20");
+	//ajax.send();
+</script>
+
+</body>
+</html>
