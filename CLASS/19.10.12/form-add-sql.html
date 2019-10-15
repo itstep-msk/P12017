@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form add sql</title>
+</head>
+<body>
+
+<form action="post-add-sql.php" method="POST">
+	<input type="text" name="fruitName" placeholder="name"><br>
+	<input type="text" name="fruitValue" placeholder="value"><br>
+	<input type="text" name="fruitPrice" placeholder="price"><br>
+	<input type="submit">
+</form>
+
+<script>
+	var ajax = new XMLHttpRequest();
+
+	ajax.onreadystatechange = function() {
+		if(ajax.status === 200 && ajax.readyState === 4) {
+			console.log(ajax.responseText);
+		}
+	}
+
+	ajax.open("GET", "http://localhost/19.10.12/get-sql.php");
+	ajax.send();
+</script>
+
+</body>
+</html>
