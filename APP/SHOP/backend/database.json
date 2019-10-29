@@ -1,0 +1,36 @@
+{
+	"goods": [
+		{
+			"caption": "Xiaomi Mi 9T Pro 6/128GB (синий)",
+			"price": "10 000 P"
+		},
+		{
+			"caption": "Samsung Galaxy A30s 32Gb (чёрный) ",
+			"price": "20 000 P"
+		},
+		{
+			"caption": "Apple iPhone 8 Plus 128Gb (золотой) ",
+			"price": "30 000 P"
+		},
+		{
+			"caption": "Motorola One Action (темно-синий)",
+			"price": "40 000 P"
+		},
+		{
+			"caption": "Xiaomi Mi 9T Pro 6/128GB (синий)",
+			"price": "50 000 P"
+		},
+		{
+			"caption": "Samsung Galaxy A30s 32Gb (чёрный) ",
+			"price": "60 000 P"
+		},
+		{
+			"caption": "Apple iPhone 8 Plus 128Gb (золотой) ",
+			"price": "70 000 P"
+		},
+		{
+			"caption": "Motorola One Action (темно-синий)",
+			"price": "80 000 P"
+		}
+	]
+}

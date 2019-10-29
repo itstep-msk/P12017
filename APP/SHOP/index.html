@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shop</title>
+	<link rel="stylesheet" href="css/uikit.min.css">
+	<meta charset="utf-8">
+</head>
+<body>
+
+	<style>
+		.button-success {
+			background-color: #28a745;
+		}
+
+		.button-success:focus {
+			background-color: #28a745;
+		}
+
+		.button-success:hover {
+			background-color: #218838;
+		}
+
+		.button-success:active {
+			background-color: #1e7e34;
+		}
+	</style>
+
+	<div class="uk-container">
+		<div class="js-goods" uk-grid></div>
+		<div class="uk-text-center uk-margin-large-top">
+			<div class="uk-button uk-button-primary js-more">Еще</div>
+		</div>
+	</div>
+
+	<template id="card">
+		<div class="uk-card uk-card-default uk-width-1-4 uk-padding">
+			<div class="uk-card-header">
+				<img src="img/goods_0.jpg">
+			</div>
+			<div class="uk-card-body">
+				<div class="uk-text-center js-caption">Xiaomi Mi 9T Pro 6/128GB (синий)</div>
+				<div class="uk-text-center uk-text-lead uk-margin-top js-price">33 990 Р</div>
+			</div>
+			<div class="uk-card-footer uk-text-center">
+				<button class="uk-button uk-button-primary button-success js-button">Купить</button>
+			</div>
+		</div>
+	</template>
+
+	<script src="js/uikit.min.js"></script>
+	<script>
+		class Goods {
+			constructor(container, card) {
+				this._goods = [];
+				this._container = document.querySelector(container);
+				this._card = document.querySelector(card).content.firstElementChild;
+				this._from = 0;
+				this._to = 1;
+			}
+
+			get range() {
+				return {
+					from: this._from,
+					to: this._to
+				}
+			}
+
+			add(goods) {
+				for(var i = 0; i < goods.length; i++) {
+					this._goods.push(goods[i]);
+					this.render(goods[i]);
+				}
+			}
+
+			render(good) {
+				var card = this._card.cloneNode(true);
+				var caption = card.querySelector(".js-caption");
+				var price = card.querySelector(".js-price");
+
+				caption.innerHTML = good.caption;
+				price.innerHTML = good.price;
+
+				this._container.appendChild(card);
+			}
+		}
+
+		class Ajax {
+			constructor(url) {
+				this._url = url;
+			}
+
+			getData(callback, range) {
+				var xhr = new XMLHttpRequest();
+
+				xhr.onreadystatechange = function() {
+					if(xhr.status === 200 & xhr.readyState === 4) {
+						callback(xhr.responseText);
+					}
+				}
+				//xhr.open("GET", this._url + "/?from=" + range.from + "&to=" + range.to);
+				xhr.open("GET", this._url + `/?from=${range.from}&to=${range.to}`);
+				xhr.send();
+			}
+		}
+
+		var goods = new Goods(".js-goods", "#card");
+		var ajax = new Ajax("http://localhost/SHOP/backend/goods.php");
+		var more = document.querySelector(".js-more");
+
+		ajax.getData(getDataHandler, goods.range);
+		more.addEventListener("click", moreHandler);
+
+		function moreHandler() {
+			goods._from += 2;
+			goods._to += 2;
+
+			ajax.getData(getDataHandler, goods.range);
+		}
+
+		function getDataHandler(data) {
+			goods.add(JSON.parse(data));
+		}
+
+		/*
+			1) в goods сделать методом для отправки запроса (new Ajax())
+			2) привести в порядок обработичик moreHandler (убрать goods._from, навеное сделать метод для переключения диапазона)
+		*/
+	</script>
+</body>
+</html>
