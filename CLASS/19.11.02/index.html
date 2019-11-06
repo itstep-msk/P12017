@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue</title>
+</head>
+<body>
+
+<div id="app">
+	{{ apple + 20 }}
+	{{ getApple() }}
+	<br>
+	<span v-bind:title="age">Наведи сюда узнаешь: age</span>
+	<br>
+	<span :title="age">Наведи сюда узнаешь: age</span>
+	<br>
+	<input v-model="apple" type="text">
+	<div v-for="(n, index) in num">
+		{{ n + " Индекс " + index }}
+	</div>
+	<div v-if="true">Показывается</div>
+	<div v-else>А этот не будет</div>
+	<div v-if="!true">А этот не будет</div>
+	<div v-show="!true">А этот не будет</div>
+	<food v-for="fruit in fruits" :item="fruit"></food>
+</div>
+
+<template id="food">
+	<div>Фрукт: {{ item }}</div>
+</template>
+
+<script src="vue.min.js"></script>
+<script>
+	Vue.component("food", {
+		props: ["item"],
+		template: "#food"
+	})
+
+	/*
+	function food(item) {
+		return "<div>Фрукт: {{ item }}</div>"
+	}
+
+	food("яблоко");
+	*/
+
+	var app = new Vue({
+		el: "#app",
+		data: {
+			apple: 10,
+			age: "20",
+			num: [1, 2, 3],
+			fruits: ["apple", "orange", "rat"]
+		},
+		methods: {
+			getApple: function() {
+				return this.apple + 100;
+				// this.apple // 10
+			}
+		},
+		watch: {
+			apple: function() {
+				console.log("Значение apple поменялось на: " + this.apple)
+			}
+		},
+		beforeCreate: function() {
+			console.log("Перед созданием: beforeCreated")
+		},
+		beforeUpdate: function() {
+			console.log("Перед ОБНОВЛЕНИЕМ: beforeUpdate")
+		}
+	})
+</script>
+
+</body>
+</html>

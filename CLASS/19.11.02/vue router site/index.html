@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue router site</title>
+	<link rel="stylesheet" href="css/uikit.min.css">
+</head>
+<body>
+
+<div id="app" class="uk-container">
+	<nav class="uk-navbar-container" uk-navbar>
+	    <div class="uk-navbar-left">
+	        <ul class="uk-navbar-nav">
+	            <li>
+	            	<router-link to="/">Главная</router-link>
+	            </li>
+	            <li>
+	            	<router-link to="/news">Новости</router-link>
+	            </li>
+	            <li>
+	            	<router-link to="/gallery">Галерея</router-link>
+	            </li>
+	        </ul>
+	    </div>
+	</nav>
+	<router-view></router-view>
+</div>
+
+<template id="template-home">
+	<div>Главная</div>
+</template>
+
+<template id="template-news">
+	<div>
+		<div v-for="(item, index) in this.$root.news" class="uk-card uk-card-default">
+		    <div class="uk-card-header">
+		        <h3 class="uk-card-title uk-margin-remove-bottom">{{ item.caption }}</h3>
+		    </div>
+		    <div class="uk-card-body">
+		        <p>{{ item.desc }}</p>
+		    </div>
+		    <div class="uk-card-footer">
+		        <router-link :to="'/news/' + index" class="uk-button uk-button-text">Читать далее...</router-link>
+		    </div>
+		</div>
+	</div>
+</template>
+
+<template id="template-gallery">
+	<div>Галерея</div>
+</template>
+
+<template id="template-news-full">
+	<div>
+		<h1>{{ this.$root.news[this.$route.params.id].caption }}</h1>
+		<p>{{ this.$root.news[this.$route.params.id].desc }}</p>
+	</div>
+</template>
+
+<script src="js/uikit.min.js"></script>
+<script src="js/vue.min.js"></script>
+<script src="js/vue-router.js"></script>
+<script>
+	var home = Vue.component("home", {
+		template: "#template-home"
+	})
+	var news = Vue.component("news", {
+		template: "#template-news"
+	})
+	var newsFull = Vue.component("news-full", {
+		template: "#template-news-full"
+	})
+	var gallery = Vue.component("gallery", {
+		template: "#template-gallery"
+	})
+	var routes = [
+		{ path: "/", component: home },
+		{ path: "/news", component: news },
+		{ path: "/news/:id", component: newsFull },
+		{ path: "/gallery", component: gallery }
+	]
+	var router = new VueRouter({ routes: routes });
+
+	var app = new Vue({
+		el: "#app",
+		data: {
+			news: [
+					{
+						caption: "Синоптики предупредили об аномальном тепле в Центральной России",
+						desc: "На следующей неделе в Центральную Россию придет мощный поток субтропического тепла, заявил в разговоре со \"Звездой\" ведущий специалист Центра погоды \"Фобос\" Евгений Тишковец."
+					},
+					{
+						caption: "На ВДНХ обновили павильон «Макет Москвы»",
+						desc: "На ВДНХ завершилась реконструкция павильона «Макет Москвы». После расширения экспозиции гости могут увидеть 23 тысячи объектов."
+					},
+					{
+						caption: "Карта России украсит павильон МЦД ко Дню народного единства",
+						desc: "26-метровая карта России украсит павильон Московских центральных диаметров (МЦД), расположенный на площади у Киевского вокзала."
+					}
+				]
+			},
+		router: router
+	})
+</script>
+
+</body>
+</html>

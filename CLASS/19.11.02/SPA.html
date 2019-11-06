@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SPA (Single Page Application)</title>
+</head>
+<body>
+
+<div id="app">
+	<router-link to="/foo">Перейти к Foo</router-link>
+    <router-link to="/bar/0">apple</router-link>
+    <router-link to="/bar/1">orange</router-link>
+    <router-link to="/bar/2">plum</router-link>
+    <br>
+    <router-view></router-view>
+</div>
+
+<script src="vue.min.js"></script>
+<script src="vue-router.js"></script>
+<script>
+	var foo = { template: '<div>foo</div>' }
+	var bar = Vue.component("bar", {
+		data: function() {
+			return {
+				message: "hello"
+			}
+		},
+		template: '<div>{{ this.message }} - {{ this.$root.fruits[this.$route.params.id]  }}</div>'
+	})
+
+	var routes = [
+		{ path: '/foo', component: foo },
+		{ path: '/bar/:id', component: bar }
+	]
+
+	var router = new VueRouter({
+		routes: routes // routes - деструктуризация
+	})
+
+	var app = new Vue({
+		el: "#app",
+		data: {
+			fruits: ["apple", "orange", "plum"]
+		},
+		router: router
+	})
+</script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Change hash event</title>
+</head>
+<body>
+
+<a href="changehashevent.html#apple">apple</a>
+<a href="changehashevent.html#orange">orange</a>
+
+<div class="page"></div>
+
+<template id="template-apple">
+	<div>Яблоко</div>
+</template>
+
+<template id="template-orange">
+	<div>Апельсин</div>
+</template>
+
+<script>
+	var page = document.querySelector(".page");
+
+	window.addEventListener("hashchange", function() {
+		var hash = window.location.hash.slice(1); // Вырезать с 1-ого и до конца
+		var temp = document.querySelector("#template-" + hash);
+
+		page.innerHTML = "";
+		page.innerHTML = temp.content.firstElementChild.innerHTML;
+	})
+</script>
+
+</body>
+</html>
