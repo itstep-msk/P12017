@@ -40,6 +40,7 @@
 		    </div>
 		    <div class="uk-card-footer">
 		        <router-link :to="'/news/' + index" class="uk-button uk-button-text">Читать далее...</router-link>
+		        <router-link :to="'/news/' + index + '/edit'" class="uk-button uk-button-text">Редактировать</router-link>
 		    </div>
 		</div>
 	</div>
@@ -56,6 +57,15 @@
 	</div>
 </template>
 
+<template id="template-news-edit">
+	<div>
+		<h2>Редактирование новости</h2>
+		<input type="text" class="uk-input" v-model="caption">
+		<textarea class="uk-textarea uk-margin-top uk-height-small" v-model="desc"></textarea>
+		<button @click="update" class="uk-button uk-button-primary uk-margin-top">Сохранить</button>
+	</div>
+</template>
+
 <script src="js/uikit.min.js"></script>
 <script src="js/vue.min.js"></script>
 <script src="js/vue-router.js"></script>
@@ -69,6 +79,26 @@
 	var newsFull = Vue.component("news-full", {
 		template: "#template-news-full"
 	})
+	var newsEdit = Vue.component("news-edit", {
+		data() {
+			return {
+				id: this.$route.params.id,
+				caption: null,
+				desc: null
+			}
+		},
+		created() { // Hook: Вызывается после создания компонента
+			this.caption = this.$root.news[this.id].caption;
+			this.desc = this.$root.news[this.id].desc;
+		},
+		methods: {
+			update() {
+				this.$root.news[this.id].caption = this.caption;
+				this.$root.news[this.id].desc = this.desc;
+			}
+		},
+		template: "#template-news-edit"
+	})
 	var gallery = Vue.component("gallery", {
 		template: "#template-gallery"
 	})
@@ -76,6 +106,7 @@
 		{ path: "/", component: home },
 		{ path: "/news", component: news },
 		{ path: "/news/:id", component: newsFull },
+		{ path: "/news/:id/edit", component: newsEdit },
 		{ path: "/gallery", component: gallery }
 	]
 	var router = new VueRouter({ routes: routes });

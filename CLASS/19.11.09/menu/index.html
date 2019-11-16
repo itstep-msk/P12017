@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Menu</title>
+	<link rel="stylesheet" href="css/uikit.min.css">
+</head>
+<body>
+
+<div id="app" class="uk-container">
+	<nav class="uk-navbar-container" uk-navbar>
+	    <div class="uk-navbar-left">
+	        <ul class="uk-navbar-nav">
+	            <li v-for="item in navigate">
+	            	<a :href="item.link">{{ item.label }}</a>
+	            	<sub-menu v-if="item.subnav" :menu="item.subnav"></sub-menu>
+	            </li>
+	        </ul>
+	    </div>
+	</nav>
+</div>
+
+<template id="submenu">
+	<div class="uk-navbar-dropdown">
+		<ul class="uk-nav uk-navbar-dropdown-nav">
+			<li v-for="item in menu">
+				<a :href="item.link">{{ item.label }}</a>
+			</li>
+		</ul>
+	</div>
+</template>
+
+<script src="js/uikit.min.js"></script>
+<script src="js/uikit-icons.min.js"></script>
+<script src="vue.min.js"></script>
+<script>
+	var submenu = Vue.component("sub-menu", {
+		props: ["menu"],
+		template: "#submenu"
+	})
+
+	var app = new Vue({
+		el: "#app",
+		data: {
+			navigate: [
+				{
+					label: "Главная",
+					link: "/"
+				},
+				{
+					label: "Новости",
+					link: "/news",
+					subnav: [
+						{
+							label: "Экономика",
+							link: "/news/economic"
+						},
+						{
+							label: "История",
+							link: "/news/history"
+						},
+						{
+							label: "Политика",
+							link: "/news/policy"
+						}
+					]
+				},
+				{
+					label: "Галерея",
+					link: "/gallery"
+				}
+			]
+		}
+	})
+</script>
+</body>
+</html>

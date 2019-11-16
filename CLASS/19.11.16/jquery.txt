@@ -1,0 +1,18 @@
+document.querySelector(".class");
+$(".class");
+
+$(".class")
+	.hide()
+	.show()
+	.hide(1000)
+	.show(1000)
+	.addClass("active-el")
+	.slideDown()
+	.html()
+$(".apple").addClass("fruits");
+$(".class").on("click keydown", function() {})
+
+//
+
+$.ajax({})
+$.getJSON("url", callback)

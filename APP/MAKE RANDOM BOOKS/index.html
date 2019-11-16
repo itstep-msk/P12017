@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Make random book</title>
+</head>
+<body>
+
+<style>
+	.container {
+
+	}
+
+	.cover {
+		width: 100%;
+		height: 600px;
+	}
+
+	.caption {
+
+	}
+</style>
+
+<div class="container">
+	<div class="cover">
+		<div class="caption"></div>
+	</div>
+	<div class="body">
+		
+	</div>
+</div>
+
+<script>
+	var api = {
+		fishText: {
+			title: "https://fish-text.ru/get?type=title&format=json",
+			caption: "https://fish-text.ru/get?type=title&format=json",
+			content: "https://fish-text.ru/get?format=json&number=100"
+		},
+		fakeUser: "http://randomuser.ru/api.json",
+		randomImage: "https://picsum.photos/500/700",
+		htmlToPdf: "https://api.html2pdf.app/v1/generate?html=%html%&apiKey=8fc8992e7ab59463faeffa82343b41a21bb05a1fe5bc2102c52a02e0a171b864"
+	}
+
+	var elements = {
+		cover: document.querySelector(".cover"),
+		caption: document.querySelector(".caption")
+	}
+
+	class Book {
+		constructor(api, elements) {
+			this._api = api;
+			this._elements = elements;
+			this._init();
+		}
+
+		_ajax(url, callback) {
+			fetch(url).then(data => data.json()).then(callback);
+		}
+
+		_getCover() {
+			this._elements.cover.style.background = `url(${this._api.randomImage})`
+		}
+
+		_getCaption() {
+			this._ajax(this._api.fishText.caption, result => {
+				this._elements.caption.innerHTML = result.text;
+			})
+		}
+
+		_init() {
+			this._getCaption();
+			this._getCover();
+		}
+	}
+
+	var book = new Book(api, elements);
+</script>
+
+</body>
+</html>

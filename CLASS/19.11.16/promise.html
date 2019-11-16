@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Promise</title>
+</head>
+<body>
+
+<script>
+	// function a(b) {
+	// 	if(1 === 1) {
+	// 		b(function(q) {
+	// 			if(3 === 3) {
+	// 				q(function() {
+	// 					i(4 === 4) {
+	// 						s(function() {
+
+	// 						})
+	// 					}
+	// 				})
+	// 			}
+	// 		})
+	// 	}
+	// }
+
+	var promis = new Promise(function(resolve, reject) {
+		// если успешно то выполнить resolve в результатом
+		// если ошибка то reject с текстом ошибки
+
+		if(true) {
+			resolve({ user: "Alex", id: 0});
+		} else {
+			reject("Ошибка. Нет такого пользователя")
+		}
+	})
+
+	promis.then(function(data) {
+		console.log(data)
+
+		return data.user;
+	}).then(function(userName) {
+		console.log(userName);
+
+		return userName.toUpperCase();
+	}).then(function(userNameUpperCase) {
+		console.log(userNameUpperCase);
+
+		return userNameUpperCase.length;
+	}).then(function(userNameLength) {
+		console.log(userNameLength);
+	}).catch(function(errorText) {
+		console.log(errorText)
+	});
+
+	fetch("https://api.myjson.com/bins/jp8l6").then(function(data) {
+		return data.json();
+	}).then(function(result) {
+		console.log(result);
+	})
+</script>
+
+</body>
+</html>

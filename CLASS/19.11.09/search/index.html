@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Search</title>
+	<link rel="stylesheet" href="css/uikit.min.css">
+</head>
+<body>
+
+<div id="app" class="uk-container">
+	<input type="text" class="uk-input uk-margin-top" v-model="search" placeholder="Поиск...">
+	<div uk-grid class="uk-margin-remove-left">
+		<div v-for="good in goods" class="uk-card uk-card-default uk-card-body uk-width-1-4">
+		    <h2>{{ good.name }}</h2>
+		    <div>{{ good.price }}</div>
+		    <button class="uk-button uk-button-primary uk-margin-top">Купить</button>
+		</div>
+	</div>
+</div>
+
+<script src="js/uikit.min.js"></script>
+<script src="js/uikit-icons.min.js"></script>
+<script src="vue.min.js"></script>
+<script>
+	var app = new Vue({
+		el: "#app",
+		data: {
+			search: "",
+			goods: [
+				{
+					id: 0,
+					name: "Авокадо",
+					price: 5500
+				},
+				{
+					id: 1,
+					name: "Зеркало от ВАЗ 2101",
+					price: 3460
+				},
+				{
+					id: 2,
+					name: "Янтарь",
+					price: 179876
+				},
+				{
+					id: 3,
+					name: "Коготь птеродактиля",
+					price: 15680
+				}
+			],
+			goodsRaw: null
+		},
+		created() {
+			this.goodsRaw = this.goods.slice()
+		},
+		watch: {
+			search() {
+				this.goods = this.goodsRaw.filter(item => item.name.includes(this.search))
+			}
+		}
+	})
+</script>
+</body>
+</html>
