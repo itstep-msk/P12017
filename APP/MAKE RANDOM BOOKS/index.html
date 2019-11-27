@@ -5,28 +5,43 @@
 </head>
 <body>
 
-<style>
-	.container {
-
-	}
-
-	.cover {
-		width: 100%;
-		height: 600px;
-	}
-
-	.caption {
-
-	}
-</style>
-
 <div class="container">
+	<style>
+		body {
+			margin: 0;
+		}
+
+		.container {
+	    	font-family: "Arial";
+		}
+
+		.cover {
+			width: 100%;
+			height: 1048px;
+			padding-top: 60px;
+		    background-size: cover;
+		}
+
+		.caption {
+			background: rgba(255, 255, 255, .75);
+		    text-align: center;
+		    padding: 30px;
+		    font-size: 90px;
+		    color: black;
+		}
+
+		.title {
+			font-size: 36px;
+		}
+
+		.content {
+		    margin-top: 20px;
+		}
+	</style>
 	<div class="cover">
 		<div class="caption"></div>
 	</div>
-	<div class="body">
-		
-	</div>
+	<div class="body"></div>
 </div>
 
 <script>
@@ -43,7 +58,9 @@
 
 	var elements = {
 		cover: document.querySelector(".cover"),
-		caption: document.querySelector(".caption")
+		caption: document.querySelector(".caption"),
+		container: document.querySelector(".container"),
+		body: document.querySelector(".body")
 	}
 
 	class Book {
@@ -58,13 +75,40 @@
 		}
 
 		_getCover() {
-			this._elements.cover.style.background = `url(${this._api.randomImage})`
+			this._elements.cover.style.backgroundImage = `url(${this._api.randomImage})`;
 		}
 
 		_getCaption() {
 			this._ajax(this._api.fishText.caption, result => {
-				this._elements.caption.innerHTML = result.text;
+				this._elements.caption.innerHTML = result.text.split(" ").slice(0, 2).join(" ");
 			})
+		}
+
+		_createPDF() {
+			var html = this._elements.container.innerHTML;
+			var url = this._api.htmlToPdf.replace("%html%", html);
+
+			url = url.replace(/&quot;/g, "");
+
+			console.log(encodeURI(url));
+		}
+
+		_createChapter() {
+			var title = document.createElement("div");
+			var content = document.createElement("div");
+
+			title.classList.add("title");
+			content.classList.add("content");
+
+			this._ajax(this._api.fishText.title, result => {
+				title.innerHTML = result.text;
+			});
+			this._ajax(this._api.fishText.content, result => {
+				content.innerHTML = result.text;
+			});
+
+			this._elements.body.appendChild(title);
+			this._elements.body.appendChild(content);
 		}
 
 		_init() {
